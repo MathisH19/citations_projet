@@ -45,7 +45,7 @@ final class QuoteController extends AbstractController
     public function leaderboard(QuoteRepository $quoteRepository): Response
     {
         return $this->render('quote/leaderboard.html.twig', [
-            'quotes' => $quoteRepository->findBy([], ['aura' => 'DESC']),
+            'quotes' => $quoteRepository->findBy([], ['aura' => 'DESC'], 10),
         ]);
     }
     #[Route('quote/{id}', name: 'app_quote_show')]
