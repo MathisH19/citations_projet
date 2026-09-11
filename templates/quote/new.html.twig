@@ -11,4 +11,5 @@
     {{ form_widget(form) }}
     <button type="submit">Enregistrer</button>
     {{ form_end(form) }}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {% endblock %}

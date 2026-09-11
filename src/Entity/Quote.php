@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\QuoteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: QuoteRepository::class)]
 class Quote
@@ -15,9 +16,12 @@ class Quote
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'Il faut mettre la citation, donne nous en un peu quoi !')]
     private ?string $content = null;
 
     #[ORM\Column(length: 75)]
+    #[Assert\NotBlank(message: 'L\'auteur est obligatoire.')]
+    #[Assert\Length(min: 2, max: 75, minMessage:'Il faut un nom pour l\'auteur')]
     private ?string $author = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -27,15 +31,18 @@ class Quote
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(length: 25, nullable: true)]
+    #[Assert\Length(min:2, max: 25, minMessage: 'Une petite date ?')]
     private ?string $century = null;
 
     #[ORM\Column(length: 20, nullable: true)]
+    #[Assert\Length(min: 2, max:  20, minMessage: 'Une vrai langue stp')]
     private ?string $language = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $context = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Range(min: -1000000, max: 1000000, notInRangeMessage: 'Il ne faut pas abuser des bonnes choses')]
     private ?int $aura = null;
 
     public function __construct()
@@ -143,4 +150,10 @@ class Quote
 
         return $this;
     }
+
+
+
+
+
+
 }

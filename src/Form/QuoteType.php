@@ -26,6 +26,9 @@ class QuoteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Quote::class,
+            'attr' => [
+                'novalidate' => 'novalidate',
+            ],
         ]);
     }
 }
