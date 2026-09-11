@@ -63,4 +63,17 @@ final class QuoteController extends AbstractController
         ]);
     }
 
+    #[Route('/quote/{id}/delete', name: 'app_quote_delete', methods: ['POST'])]
+    public function delete(Request $request, Quote $quote, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$quote->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($quote);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_quote');
+
+    }
+
+
 }

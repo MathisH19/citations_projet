@@ -28,6 +28,10 @@
                 Ajoutée le : {{ quote.createdAt|date('d/m/Y à H:i') }}
             </small>
             <a href="{{ path('app_quote_edit', { id: quote.id }) }}">Modifier la citation</a>
+            <form method="post" action="{{ path('app_quote_delete', { id: quote.id }) }}" onsubmit="return confirm('Es-tu sûr de vouloir supprimer cette citation ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ quote.id) }}">
+                <button type="submit">Supprimer</button>
+            </form>
         </article>
     </div>
 {% endblock %}
