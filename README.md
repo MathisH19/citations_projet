@@ -46,8 +46,8 @@ En plus du contenu textuel (`content`) et de l'auteur (`author`), l'entité int�
 ### 1. Cloner le dépôt
 
 ```bash
-git clone <URL_DU_DEPOT>
-cd <NOM_DU_DOSSIER>
+git clone https://github.com/MathisH19/citations_projet.git
+cd citations_projet
 ```
 
 ### 2. Installation des dépendances
