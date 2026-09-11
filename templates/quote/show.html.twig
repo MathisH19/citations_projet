@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}En savoir plus{% endblock %}
+
+{% block body %}
+    <div style="margin: 2em auto; max-width: 800px; font-family: sans-serif;">
+        <a href="{{ path('app_quote') }}">← Retour à la liste</a>
+
+        <article style="margin-top: 2em; padding: 1.5em; border: 1px solid #ddd; border-radius: 8px;">
+            <blockquote style="font-size: 1.4em; font-style: italic; margin: 0 0 1em 0;">
+                "{{ quote.content }}"
+            </blockquote>
+
+            <p><strong>Auteur :</strong> {{ quote.author }}</p>
+            <p><strong>Source :</strong> {{ quote.source ?? 'Inconnue' }}</p>
+            <p><strong>Époque / Siècle :</strong> {{ quote.century ?? 'Non précisé' }}</p>
+            <p><strong>Langue originale :</strong> {{ quote.language ?? 'Non précisée' }}</p>
+            <p><strong>Score d'Aura :</strong> {{ quote.aura }}</p>
+
+            {% if quote.context %}
+                <div style="margin-top: 1.5em; padding-top: 1em; border-top: 1px dashed #ccc;">
+                    <strong>Contexte historique / Anecdote :</strong>
+                    <p>{{ quote.context }}</p>
+                </div>
+            {% endif %}
+
+            <small style="color: #666;">
+                Ajoutée le : {{ quote.createdAt|date('d/m/Y à H:i') }}
+            </small>
+            <a href="{{ path('app_quote_edit', { id: quote.id }) }}">Modifier la citation</a>
+            <form method="post" action="{{ path('app_quote_delete', { id: quote.id }) }}" onsubmit="return confirm('Es-tu sûr de vouloir supprimer cette citation ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ quote.id) }}">
+                <button type="submit">Supprimer</button>
+            </form>
+        </article>
+    </div>
+{% endblock %}
