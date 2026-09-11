@@ -40,6 +40,14 @@ final class QuoteController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/quote/leaderboard', name: 'app_quote_leaderboard')]
+    public function leaderboard(QuoteRepository $quoteRepository): Response
+    {
+        return $this->render('quote/leaderboard.html.twig', [
+            'quotes' => $quoteRepository->findBy([], ['aura' => 'DESC']),
+        ]);
+    }
     #[Route('quote/{id}', name: 'app_quote_show')]
     public function show(Quote $quote): Response
     {

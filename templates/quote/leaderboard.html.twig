@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classement d'AURA{% endblock %}
+
+{% block body %}
+    <h1>Voici le TOP 10 des Auteurs avec le plus d'AURA </h1>
+
+    <ol>
+        {% for quote in quotes %}
+            <li>
+                <strong>{{ quote.author }}</strong> ({{ quote.aura }} Aura) :
+                <p>"{{ quote.content }}"</p> —
+                <a href="{{ path('app_quote_show', { id: quote.id }) }}">Voir la fiche</a>
+            </li>
+        {% else %}
+            <p>Désolé, aucune citation n'est disponible pour le moment.</p>
+        {% endfor %}
+    </ol>
+
+{% endblock %}
