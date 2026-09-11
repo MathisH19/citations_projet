@@ -27,6 +27,7 @@
             <small style="color: #666;">
                 Ajoutée le : {{ quote.createdAt|date('d/m/Y à H:i') }}
             </small>
+            <a href="{{ path('app_quote_edit', { id: quote.id }) }}">Modifier la citation</a>
         </article>
     </div>
 {% endblock %}

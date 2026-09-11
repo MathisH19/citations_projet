@@ -48,4 +48,19 @@ final class QuoteController extends AbstractController
         ]);
     }
 
+    #[Route('/quote/{id}/edit', name: 'app_quote_edit')]
+    public function edit(Request $request, Quote $quote, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(QuoteType::class, $quote);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_quote');
+        }
+
+        return $this->render('quote/edit.html.twig', [
+            'form' => $form, 'quote' => $quote,
+        ]);
+    }
+
 }

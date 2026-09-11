@@ -17,6 +17,7 @@
             </a>
             — <strong>{{ quote.author }}</strong>
         </p>
+        <a href="{{ path('app_quote_edit', { id: quote.id }) }}">Modifier</a>
         {% else %}
 
         <p>
