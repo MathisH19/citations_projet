@@ -1,3 +1,66 @@
-body {
-    background-color: skyblue;
+/* Réinitialisation globale des liens */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+    opacity: 0.85;
+}
+
+/* Grille et cartes de citations */
+.quote-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.quote-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.quote-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+}
+
+.quote-text {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.quote-author {
+    font-weight: 700;
+    color: #475569;
+    font-size: 0.95rem;
+}
+
+.quote-footer {
+    margin-top: 1.25rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badge-aura {
+    background-color: #fef3c7;
+    color: #92400e;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
 }

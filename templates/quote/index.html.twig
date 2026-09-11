@@ -1,35 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello QuoteController!{% endblock %}
+{% block title %}Bibliothèque de citations{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Bienvenue sur la meilleure bibliothèque de citations OAT ✅</h1>
-    {% for quote in quotes %}
-        <p>
-            <a href="{{ path('app_quote_show', { id: quote.id }) }}">
-                "{{ quote.content }}"
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h1 class="h2 mb-1 fw-bold">Bibliothèque de citations OAT ✅</h1>
+            <p class="text-muted small mb-0">{{ quotes|length }} citation(s) répertoriée(s)</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{{ path('app_quote_leaderboard') }}" class="btn btn-outline-warning text-dark fw-semibold">
+                🏆 Voir le classement d'Aura
             </a>
-            — <strong>{{ quote.author }}</strong>
-        </p>
-        <a href="{{ path('app_quote_edit', { id: quote.id }) }}">Modifier</a>
-        {% else %}
+            <a href="{{ path('app_quote_new') }}" class="btn btn-primary fw-semibold">
+                + Ajouter une citation
+            </a>
+        </div>
+    </div>
 
-        <p>
-            Désolé aucune citation n'est disponible pour le moment.
-        </p>
+    {% if quotes is empty %}
+        <div class="alert alert-light text-center py-5 border rounded-3 my-4">
+            <p class="fs-5 text-muted mb-3">Désolé, aucune citation n'est disponible pour le moment.</p>
+            <a href="{{ path('app_quote_new') }}" class="btn btn-sm btn-primary">Créer la première citation</a>
+        </div>
+    {% else %}
+        <div class="quote-grid">
+            {% for quote in quotes %}
+                <article class="quote-card">
+                    <div>
+                        <a href="{{ path('app_quote_show', { id: quote.id }) }}" class="quote-text">
+                            « {{ quote.content }} »
+                        </a>
+                        <span class="quote-author">— {{ quote.author }}</span>
+                    </div>
 
-    {% endfor %}
+                    <div class="quote-footer">
+                        {% if quote.aura is not null %}
+                            <span class="badge-aura">✨ {{ quote.aura }} Aura</span>
+                        {% else %}
+                            <span></span>
+                        {% endif %}
 
-    <p>
-        <a href="{{ path('app_quote_new') }}">+ Ajouter une citation</a>
-        <a href="{{ path('app_quote_leaderboard') }}">🏆 Voir le classement d'Aura</a>
-    </p>
-
-</div>
+                        <div class="btn-group btn-group-sm">
+                            <a href="{{ path('app_quote_show', { id: quote.id }) }}" class="btn btn-outline-secondary">Voir</a>
+                            <a href="{{ path('app_quote_edit', { id: quote.id }) }}" class="btn btn-outline-primary">Modifier</a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
