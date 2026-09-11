@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\QuoteRepository;
+use App\Form\QuoteType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 final class QuoteController extends AbstractController
 {
@@ -18,6 +21,25 @@ final class QuoteController extends AbstractController
             'quotes' => $quoteRepository->findAll(),
         ]);
     }
+
+    #[Route('/quote/new', name: 'app_quote_new')]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $quote = new Quote();
+        $form = $this->createForm(QuoteType::class, $quote);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($quote);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_quote');
+        }
+
+        return $this->render('quote/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
     #[Route('quote/{id}', name: 'app_quote_show')]
     public function show(Quote $quote): Response
     {
@@ -25,4 +47,5 @@ final class QuoteController extends AbstractController
             'quote' => $quote,
         ]);
     }
+
 }
